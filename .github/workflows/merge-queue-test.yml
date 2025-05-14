@@ -1,0 +1,36 @@
+name: Merge Queue Test
+
+on:
+  pull_request:
+    branches: [main]
+  merge_group:
+    branches: [main]
+
+jobs:
+  test-with-delay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Sleep to simulate longer running test
+        run: |
+          echo "This test will run for 60 seconds"
+          sleep 60
+
+      - name: Determine test outcome
+        id: outcome
+        run: |
+          echo "that worked"
+
+  # This job always runs last and depends on all tests
+  final-check:
+    name: Final verification
+    needs: test-with-delay
+    runs-on: ubuntu-latest
+    steps:
+      - name: Final check with delay
+        run: |
+          echo "Running final verification..."
+          sleep 20
+          echo "✅ All checks completed successfully!"
