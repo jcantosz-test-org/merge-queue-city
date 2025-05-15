@@ -2,7 +2,7 @@
 # Combined script to test merge queue functionality
 
 # Configuration
-REPO="your-username/your-repo"
+REPO="jcantosz-test-org/merge-queue-city"
 BASE_BRANCH="main"
 NUMBER_OF_PRS=3
 WAIT_TIME=30  # Seconds to wait before adding PRs to queue

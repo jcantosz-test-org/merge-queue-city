@@ -8,6 +8,11 @@ on:
   merge_group:
     branches: [main]
 
+# How will this affect the merge queue?
+concurrency:
+  group: merge-queue-test-${{ github.head_ref}}
+  cancel-in-progress: true
+
 jobs:
   test-with-delay:
     runs-on: ubuntu-latest
