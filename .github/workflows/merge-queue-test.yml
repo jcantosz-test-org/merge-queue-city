@@ -25,7 +25,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         run: |
           echo "This test will run for 60 seconds"
-          sleep 60
+          sleep 10
 
       - name: Determine test outcome
         id: outcome

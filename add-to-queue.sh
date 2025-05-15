@@ -27,15 +27,15 @@ for PR_NUM in $PR_LIST; do
   echo "Adding PR #$PR_NUM to merge queue..."
   
   # Check if PR is mergeable
-  MERGEABLE=$(gh pr view $PR_NUM --repo $REPO --json mergeable --jq '.mergeable')
+  # MERGEABLE=$(gh pr view $PR_NUM --repo $REPO --json mergeable --jq '.mergeable')
   
-  if [ "$MERGEABLE" != "true" ]; then
-    echo "⚠️ Warning: PR #$PR_NUM is not mergeable, skipping."
-    continue
-  fi
+  # if [ "$MERGEABLE" != "true" ]; then
+  #   echo "⚠️ Warning: PR #$PR_NUM is not mergeable, skipping."
+  #   continue
+  # fi
   
   # Add to merge queue using gh pr merge with merge-queue option
-  gh pr merge $PR_NUM --repo $REPO --merge-queue --admin
+  gh pr merge $PR_NUM --repo $REPO --merge #-queue --admin
   
   echo "✅ Added PR #$PR_NUM to merge queue"
 done
