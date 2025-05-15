@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Sleep to simulate longer running test
+        if: ${{ github.event_name != 'pull_request' }}
         run: |
           echo "This test will run for 60 seconds"
           sleep 60
@@ -36,8 +37,21 @@ jobs:
     needs: test-with-delay
     runs-on: ubuntu-latest
     steps:
+      - name: pass_pr
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          echo "This is a pull request"
+          echo "Final check passed!"
       - name: Final check with delay
+        if: ${{ github.event_name != 'pull_request' }}
         run: |
           echo "Running final verification..."
           sleep 20
-          echo "✅ All checks completed successfully!"
+          time=$(date +%s%N | cut -b1-13)
+          result=$((time % 2))
+          if [ $result -eq 0 ]; then
+            echo "Final check failed!"
+            exit 1
+          else
+            echo "Final check passed!"
+          fi
