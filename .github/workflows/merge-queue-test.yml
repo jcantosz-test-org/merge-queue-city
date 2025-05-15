@@ -9,9 +9,10 @@ on:
     branches: [main]
 
 # How will this affect the merge queue?
-concurrency:
-  group: merge-queue-test-${{ github.head_ref}}
-  cancel-in-progress: true
+# Works with the only care about last queue item results setting, but a problem if that one fails
+# concurrency:
+#   group: merge-queue-test-${{ github.head_ref}}
+#   cancel-in-progress: true
 
 jobs:
   test-with-delay:
